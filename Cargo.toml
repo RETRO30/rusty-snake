@@ -22,3 +22,14 @@ opt-level = 1
 # Enable a large amount of optimization in the dev profile for dependencies.
 [profile.dev.package."*"]
 opt-level = 3
+
+# Size-optimized release build. A default release Bevy wasm bundle is 100MB+
+# (over GitHub's 100MB file limit); LTO + size opt + strip bring it down to a
+# few tens of MB. Install binaryen's `wasm-opt` for a further ~2x — build_web.py
+# runs it automatically when it's on PATH.
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

@@ -1,5 +1,5 @@
 # Rusty Snake
-
+Author: [RETRO30](https://github.com/RETRO30)
 A classic Snake game written in Rust with the [Bevy](https://bevyengine.org/) game engine
 (0.19, ECS architecture).
 
