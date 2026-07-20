@@ -14,6 +14,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+WASM_BINDGEN_OUT = "rusty_snake_bg.wasm"
+
 ROOT = Path(__file__).resolve().parent
 OUT_DIR = ROOT / "dist"
 WASM = ROOT / "target" / "wasm32-unknown-unknown" / "release" / "rusty_snake.wasm"
@@ -55,7 +57,17 @@ def main() -> None:
         str(WASM),
     )
 
-    # 4. Copy the HTML shell and runtime assets (fonts, etc.) so asset loads
+    # 4. Optionally shrink the wasm further with binaryen's wasm-opt (~2x).
+    #    Skipped with a note if it isn't installed — the release profile alone
+    #    already keeps the bundle under GitHub's 100MB limit.
+    wasm = OUT_DIR / WASM_BINDGEN_OUT
+    if shutil.which("wasm-opt"):
+        run("wasm-opt", "-Oz", "-o", str(wasm), str(wasm))
+    else:
+        print("note: wasm-opt not found (install binaryen for a smaller bundle)")
+    print(f"wasm size: {wasm.stat().st_size / 1_000_000:.1f} MB")
+
+    # 5. Copy the HTML shell and runtime assets (fonts, etc.) so asset loads
     #    resolve at runtime.
     shutil.copy(ROOT / "web" / "index.html", OUT_DIR / "index.html")
     assets = ROOT / "assets"
