@@ -34,9 +34,22 @@
            up with the frame), and stay within the viewport on small screens.
            The ~110px subtracted from the height leaves room for #controls below.
            TWEAK: bump the 642px / 698px caps to make the game render larger. */
+        position: relative;
         width: min(100%, 642px, calc((100dvh - 110px) * 642 / 698));
         max-height: 698px;
         aspect-ratio: 642 / 698;
+      }
+
+      #loading {
+        /* Shown over the canvas until the wasm module finishes loading, then
+           removed by the init script below. */
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8a8a97;
+        font-size: 18px;
       }
 
       #bevy-canvas {
@@ -108,6 +121,7 @@
   <body>
     <div id="game-wrap">
       <canvas id="bevy-canvas"></canvas>
+      <div id="loading">Loading…</div>
     </div>
 
     <div id="controls">
@@ -130,7 +144,11 @@
 
     <script type="module">
       import init from "./rusty_snake.js";
-      init();
+      // Keep "Loading…" up until the wasm module is initialized and the app
+      // has started, then remove the overlay so the canvas shows through.
+      init().finally(() => {
+        document.getElementById("loading")?.remove();
+      });
     </script>
   </body>
 </html>
