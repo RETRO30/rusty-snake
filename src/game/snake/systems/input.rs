@@ -14,7 +14,7 @@ pub fn handle_input(mut snake_query: Query<&mut Snake>, keys: Res<ButtonInput<Ke
             };
 
             if new_direction != snake.direction.opposite() {
-                snake.direction = new_direction;
+                snake.next_direction = new_direction;
                 break;
             }
         }

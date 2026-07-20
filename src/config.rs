@@ -1,2 +1,11 @@
-pub const GRID_SIZE: u32 = 40;
-pub const CELL_SIZE: u32 = 10;
+pub const GRID_SIZE: i32 = 40;
+pub const CELL_SIZE: i32 = 16;
+
+pub const BORDER_THICKNESS: f32 = 1.0;
+pub const TOP_BAR_HEIGHT: f32 = 56.0;
+
+pub const PLAYFIELD_PX: f32 = (CELL_SIZE * GRID_SIZE) as f32;
+
+pub const WINDOW_WIDTH: f32 = PLAYFIELD_PX + BORDER_THICKNESS * 2.0;
+
+pub const WINDOW_HEIGHT: f32 = PLAYFIELD_PX + BORDER_THICKNESS * 2.0 + TOP_BAR_HEIGHT;

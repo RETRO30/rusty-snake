@@ -5,14 +5,19 @@ use crate::config::CELL_SIZE;
 use bevy::prelude::*;
 
 #[derive(Component, Clone, Copy, PartialEq, Eq, Hash, Debug, Deref, DerefMut, Add, Sub)]
-pub struct GridPosition(IVec2);
+pub struct GridPosition(IVec3);
 
 impl GridPosition {
-    pub fn new(x: i32, y: i32) -> Self {
-        GridPosition(IVec2::new(x, y))
+    pub fn fromxy(x: i32, y: i32) -> Self {
+        GridPosition(IVec3::new(x, y, 0))
     }
+
     pub fn to_vec3(&self) -> Vec3 {
-        (self.0.as_vec2() * CELL_SIZE as f32).extend(0.0)
+        Vec3::new(
+            (self.0.x * CELL_SIZE) as f32,
+            (self.0.y * CELL_SIZE) as f32,
+            self.0.z as f32,
+        )
     }
 }
 

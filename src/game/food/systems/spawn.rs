@@ -9,7 +9,7 @@ use crate::game::grid::systems::base_sprites::get_square;
 use crate::game::snake::components::SnakeSegment;
 
 pub fn spawn_food(commands: &mut Commands, position: GridPosition) {
-    let sprite = get_square(Color::srgb(255., 0., 0.));
+    let sprite = get_square(Color::srgb(1., 0., 0.));
 
     commands.spawn((Food, position, sprite, Transform::default()));
 }
@@ -29,7 +29,7 @@ pub fn spawn_food_on_free_space(
     let mut rng = rand::rng();
     let free_position = (0..GRID_SIZE * GRID_SIZE)
         .map(|_| {
-            GridPosition::new(
+            GridPosition::fromxy(
                 rng.random_range(-half_grid..half_grid),
                 rng.random_range(-half_grid..half_grid),
             )

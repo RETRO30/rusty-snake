@@ -6,10 +6,10 @@ use crate::game::grid::systems::base_sprites::get_square;
 use crate::game::snake::components::{Direction, Snake, SnakeSegment, SnakeSegmentRole};
 use crate::game::snake::constants::SNAKE_START_LENGTH;
 
-pub fn spawn_snake(mut commands: Commands) {
+pub fn spawn_new_snake(commands: &mut Commands) {
     let mut segments: VecDeque<Entity> = VecDeque::new();
     let direction = Direction::Up;
-    let start_position = GridPosition::new(0, 0);
+    let start_position = GridPosition::fromxy(0, 0);
 
     for i in 0..SNAKE_START_LENGTH {
         let role = if i == 0 {
@@ -21,7 +21,7 @@ pub fn spawn_snake(mut commands: Commands) {
         };
 
         let position = start_position - (direction.to_grid() * i);
-        segments.push_back(spawn_segment(&mut commands, position, role));
+        segments.push_back(spawn_segment(commands, position, role));
     }
 
     commands.spawn(Snake {

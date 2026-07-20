@@ -30,6 +30,8 @@ pub fn move_snake(
             continue;
         }
 
+        snake.direction = snake.next_direction;
+
         let Some(head) = snake.segments.front() else {
             warn!("Snake is empty, cannot move");
             continue;
