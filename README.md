@@ -3,7 +3,7 @@
 A classic Snake game written in Rust with the [Bevy](https://bevyengine.org/) game engine
 (0.19, ECS architecture).
 
-**Play online:** [retro30.github.io/rusty_snake](https://retro30.github.io/rusty_snake/)
+**Play online:** [retro30.github.io/rusty-snake](https://retro30.github.io/rusty-snake/)
 
 **Author:** [RETRO30](https://github.com/RETRO30)
 
